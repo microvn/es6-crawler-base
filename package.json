@@ -57,7 +57,7 @@
     "chai-http": "^4.2.0",
     "cors": "^2.8.5",
     "dotenv": "^6.2.0",
-    "eslint": "^2.5.3",
+    "eslint": "^4.18.2",
     "eslint-config-airbnb": "^6.2.0",
     "eslint-plugin-react": "^4.2.3",
     "express-formidable": "^1.2.0",
