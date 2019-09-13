@@ -36,16 +36,7 @@ const getListArticle = async (_domain) => {
                 //HoangHn - Return false if one page error
                 if (data.status !== 0) {
                     console.log('Update Error Domain', data.status, _domain.url);
-                    await createErrorArticle({
-                        url: _domain.url.replace(/{page}+/gi, page),
-                        domainId: _domain.id,
-                        siteId: _domain.site.id,
-                        reason: data.status === 1 ? 'Error DOM' : 'Error Request',
-                        data: JSON.stringify({_domain, page}),
-                        retries: 0,
-                        type: 1
-                    }).catch(() => console.log('Error Write Log'));
-                    await domainFunctions.update({isErrorCrawler: data.status, id: _domain.id});
+
                     page = 0;
                 } else {
                     result = data.data;
@@ -507,7 +498,7 @@ const getConfig = () => {
         allowedClasses: {
             'iframe': ['a']
         },
-        allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com', 'video.feedytv.com'],
+        allowedIframeHostnames: ['www.youtube.com', 'player.vimeo.com'],
         allowedSchemes: ['http', 'https', 'mailto'],
         exclusiveFilter: function (frame) {
             if (frame.tag === 'source' || frame.tag === 'img') {
