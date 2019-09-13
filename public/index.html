@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script
+            src="http://code.jquery.com/jquery-2.2.4.min.js"
+            integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+            crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.2.0/socket.io.dev.js"></script>
+    <script>
+
+
+        $(document).ready(function () {
+            function getUrlVars()
+            {
+                var vars = [], hash;
+                var hashes = window.location.href.slice(window.location.href.indexOf('?') + 1).split('&');
+                for(var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars.push(hash[0]);
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
+            const socket = io.connect('http://localhost:3333', {
+                query: "token=" + getUrlVars()['token']
+            })
+            socket.on('server-ping', function (data) {
+                console.log(data)
+                // const container =  document.getElementById('container')
+                // container.innerHTML = container.innerHTML + '<h4><span style="color:red">Server say => </span> ' + data.username + ' </h4>'
+                // const clientMessage = {message: "PONG"}
+                // container.innerHTML = container.innerHTML + '<h4><span style="color:green">Client say => </span> ' + clientMessage.message + ' </h4>'
+            })
+
+            socket.on('authorized', function (data) {
+                console.log("authorized");
+            });
+
+            socket.on("unauthorized", function (error) {
+                console.log(error)
+                console.log("unauthorized");
+            });
+            socket.on('error', function (reason) {
+                console.log('error:', reason);
+            });
+
+            socket.on("typingclient", function (data) {
+                console.log(data)
+                $('#typing').html(data + 'Typing');
+            });
+
+            // $('#_handlClick').click(function (e) {
+            //     console.log('clicked')
+            //     socket.emit('client-pong', "client push");
+            // })
+
+            $("#output").keyup( function(e) {
+                // your code
+                socket.emit('typing', e.target.value);
+            });
+        })
+    </script>
+</head>
+<body>
+<h1>Web socket page test</h1>
+<div id="container">
+
+    <p id="typing"></p>
+    <div class="container">
+        <textarea id="output"></textarea>
+
+    </div>
+</div>
+</body>
+</html>
