@@ -63,7 +63,7 @@
     "express-formidable": "^1.2.0",
     "express-swagger-generator": "^1.1.13",
     "faker": "^4.1.0",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "mocha": "~5.2.0",
     "moment": "^2.24.0",
     "morgan": "^1.9.1",
