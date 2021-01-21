@@ -71,7 +71,7 @@
     "redis": "^2.8.0",
     "request": "^2.88.0",
     "sanitize-html": "^1.20.1",
-    "socket.io": "^2.2.0",
+    "socket.io": "^2.4.0",
     "supertest": "^3.3.0",
     "uuid": "^3.3.2"
   }
